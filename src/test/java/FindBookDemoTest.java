@@ -24,6 +24,7 @@ public class FindBookDemoTest {
         page = new ConnectWithBrowser(driver);
         page.initialized();
         webDriver.findBrowse();
+
         webDriver.resultList();
         searchForm = new SearchForm(driver);
         searchForm.setBox();
