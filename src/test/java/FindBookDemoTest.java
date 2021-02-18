@@ -1,9 +1,5 @@
-import com.stepanova.details.Book;
-import com.stepanova.details.ConnectWithBrowser;
-import com.stepanova.details.FindBookDemo;
-import com.stepanova.details.SearchForm;
+import com.stepanova.details.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -12,32 +8,20 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class FindBookDemoTest {
-    FindBookDemo webDriver = new FindBookDemo();
-    SearchForm searchForm;
-    ConnectWithBrowser page;
+    SearchResultPage page  = new SearchResultPage();
+    FindBookDemo webDemo = new FindBookDemo();
     List<Book> result;
-    WebDriver driver;
+    String bookName = "Effective Java";
     @BeforeTest
     public void beforeTest() {
-        System.setProperty("webdriver.chrome.driver", "E:\\ChromeDriver\\chromedriver.exe");
-        driver = new ChromeDriver();
-        page = new ConnectWithBrowser(driver);
         page.initialized();
-        webDriver.findBrowse();
-
-        webDriver.resultList();
-        searchForm = new SearchForm(driver);
-        searchForm.setBox();
-        searchForm.setButton();
-        result = searchForm.resultListWithBook();
+        result = page.resultListWithBook();
+        webDemo.findBrowse();
+        webDemo.resultList();
     }
     @Test
     public void findInBrowse(){
-        List<Book> resultItem = webDriver.resultList();
-        Assert.assertEquals(searchForm.findBook(result),  webDriver.find(resultItem));
-    }
-    @AfterTest
-    public void afterSuite() {
-        driver.quit();
+        List<Book> resultItem = webDemo.resultList();
+        Assert.assertTrue(page.findBook(result,bookName), webDemo.find(resultItem,bookName));
     }
 }
