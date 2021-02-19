@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +18,9 @@ public class FindBookDemo {
     By authorName = By.xpath(nameAuthor);
     By price = By.xpath(priceBook);
     By bestseller = By.xpath(isBestSeller);
+    String nameFindBook;
 
-    public void findBrowse() {
+    public void findLink() {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         driver = new ChromeDriver();
         driver.navigate().to("https://www.amazon.com/Head-First-Java-Kathy-Sierra/dp/0596009208/ref=sr_1_2?dchild=1&keywords=Java&qid=1610356790&s=books&sr=1-2");
@@ -61,14 +61,15 @@ public class FindBookDemo {
     }
 
     public String find(List<Book> lists, String name) {
-        String nameFindBook= null;
+
         for (Book book : lists) {
             if (book.getNameBook().equals(name)) {
                 nameFindBook= book.getNameBook();
-
-
             }
         }
         return nameFindBook;
+    }
+    public void closeDriver(){
+        driver.close();
     }
 }
